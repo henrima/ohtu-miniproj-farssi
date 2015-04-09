@@ -9,6 +9,7 @@ Definition of Done:
 - Product owner sanoo että asia on pihvi
 - Asiakkaalle demottava toiminnallisuus toimii, varmistetaan käsin
 
-
+Waffles
+https://waffle.io/henrima/ohtu-miniproj-farssi
 
 [![Build Status](https://travis-ci.org/henrima/ohtu-miniproj-farssi.png)](https://travis-ci.org/henrima/ohtu-miniproj-farssi)
