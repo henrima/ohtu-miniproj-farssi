@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/henrima/ohtu-miniproj-farssi.png?label=ready&title=Ready)](https://waffle.io/henrima/ohtu-miniproj-farssi)
 # ohtu-miniproj-farssi
 
 Definition of Done:
