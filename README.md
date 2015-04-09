@@ -7,3 +7,4 @@ Definition of Done:
 - Koodi on GitHubissa ja Herokussa
 - Travis buildaa
 - Product owner sanoo että asia on pihvi
+- Asiakkaalle demottava toiminnallisuus toimii, varmistetaan käsin
