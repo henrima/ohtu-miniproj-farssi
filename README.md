@@ -8,3 +8,7 @@ Definition of Done:
 - Travis buildaa
 - Product owner sanoo että asia on pihvi
 - Asiakkaalle demottava toiminnallisuus toimii, varmistetaan käsin
+
+
+
+[![Build Status](https://travis-ci.org/henrima/ohtu-miniproj-farssi-public.png)](https://travis-ci.org/henrima/ohtu-miniproj-farssi-public)
