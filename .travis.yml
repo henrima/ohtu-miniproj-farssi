@@ -12,3 +12,6 @@ deploy:
   app: minifarssi
   on:
     repo: henrima/ohtu-miniproj-farssi
+    branches:
+  		only:
+    	- master
