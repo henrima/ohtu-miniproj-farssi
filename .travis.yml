@@ -12,6 +12,13 @@ deploy:
   app: minifarssi
   on:
    repo: henrima/ohtu-miniproj-farssi
-    branches:
-       only:
-        - master
+
+# blacklist
+branches:
+  except:
+    - staging
+
+# whitelist
+branches:
+  only:
+    - master
