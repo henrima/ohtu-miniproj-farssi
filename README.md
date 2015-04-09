@@ -11,4 +11,4 @@ Definition of Done:
 
 
 
-[![Build Status](https://travis-ci.org/henrima/ohtu-miniproj-farssi-public.png)](https://travis-ci.org/henrima/ohtu-miniproj-farssi-public)
+[![Build Status](https://travis-ci.org/henrima/ohtu-miniproj-farssi.png)](https://travis-ci.org/henrima/ohtu-miniproj-farssi)
