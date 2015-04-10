@@ -16,14 +16,13 @@ RSpec.describe 'EntryValidator' do
     'note' => 'Some result it is!',
   } }
 
-  it 'requires an entry type' do
-    article_entry['entry_type'] = nil
-    expect(EntryValidator.validate article_entry).to eq false
+  # TODO: refactor using meta-programming?
+  it 'requires an article entry' do
+    require_field article_entry, 'entry_type'
   end
 
   it 'requires a cite key' do
-    article_entry['cite_key'] = nil
-    expect(EntryValidator.validate article_entry).to eq false
+    require_field article_entry, 'cite_key'
   end
 
   describe 'article' do
@@ -32,10 +31,16 @@ RSpec.describe 'EntryValidator' do
     end
 
     it 'requires author' do
-      article_entry['author'] = nil
-      expect(EntryValidator.validate article_entry).to eq false
+      require_field article_entry, 'author'
     end
-
   end
+
+
+  private
+
+    def require_field(entry, field)
+      entry[field] = nil
+      expect(EntryValidator.validate entry).to eq false
+    end
 end
 
