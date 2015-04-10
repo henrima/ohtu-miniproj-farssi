@@ -33,6 +33,22 @@ RSpec.describe 'EntryValidator' do
     it 'requires author' do
       require_field article_entry, 'author'
     end
+
+    it 'requires title' do
+      require_field article_entry, 'title'
+    end
+
+    it 'requires journal' do
+      require_field article_entry, 'journal'
+    end
+
+    it 'requires year' do
+      require_field article_entry, 'year'
+    end
+
+    it 'requires volume' do
+      require_field article_entry, 'volume'
+    end
   end
 
 
