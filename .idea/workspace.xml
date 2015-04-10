@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fad1874e-33c1-462b-9307-0123e01dc213" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/bibtex_exporter.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/rake" afterPath="$PROJECT_DIR$/bin/rake" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/bibtex_exporter.rb" afterPath="$PROJECT_DIR$/lib/bibtex_exporter.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ohtu-miniproj-farssi.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -74,8 +74,8 @@
       <file leaf-file-name="bibtex_exporter.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/bibtex_exporter.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.69473684" vertical-offset="0" max-vertical-offset="1078">
-              <caret line="18" column="29" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+            <state vertical-scroll-proportion="1.1578947" vertical-offset="0" max-vertical-offset="1144">
+              <caret line="30" column="9" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -556,8 +556,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/bibtex_exporter.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.69473684" vertical-offset="0" max-vertical-offset="1078">
-          <caret line="18" column="29" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+        <state vertical-scroll-proportion="1.1578947" vertical-offset="0" max-vertical-offset="1144">
+          <caret line="30" column="9" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
           <folding />
         </state>
       </provider>
