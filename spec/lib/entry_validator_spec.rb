@@ -49,6 +49,22 @@ RSpec.describe 'EntryValidator' do
     it 'requires volume' do
       require_field article_entry, 'volume'
     end
+
+    it 'does not require number' do
+      do_not_require article_entry, 'number'
+    end
+
+    it 'does not require number' do
+      do_not_require article_entry, 'number'
+    end
+
+    it 'does not require number' do
+      do_not_require article_entry, 'number'
+    end
+
+    it 'does not require number' do
+      do_not_require article_entry, 'number'
+    end
   end
 
 
@@ -57,6 +73,11 @@ RSpec.describe 'EntryValidator' do
     def require_field(entry, field)
       entry[field] = nil
       expect(EntryValidator.validate entry).to eq false
+    end
+
+    def do_not_require(entry, field)
+      entry[field] = nil
+      expect(EntryValidator.validate entry).to eq true
     end
 end
 
