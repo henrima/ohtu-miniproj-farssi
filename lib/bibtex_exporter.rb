@@ -5,11 +5,14 @@ class BibtexExporter
     index = inputHash.length
     ending = ","
 
+
+    #Loop through inputhash
     inputHash.each do |key, value|
       index -= 1
       ending = "" if index == 0
       puts "  " + key + " = " + fixScandicCharacters(value) + ending
     end
+
 
     puts "}"
   end
