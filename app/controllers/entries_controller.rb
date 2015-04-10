@@ -17,6 +17,10 @@ class EntriesController < ApplicationController
     @entry = Entry.new
   end
 
+  def newarticle
+    
+  end
+
   # GET /entries/1/edit
   def edit
   end
