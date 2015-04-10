@@ -18,7 +18,8 @@ class EntriesController < ApplicationController
   end
 
   def newarticle
-    
+    @entry = Entry.new(category:"ARTICLE")
+    @author = Field.new(name:"AUTHOR")
   end
 
   # GET /entries/1/edit
