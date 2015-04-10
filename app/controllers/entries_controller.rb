@@ -19,7 +19,9 @@ class EntriesController < ApplicationController
 
   def newarticle
     @entry = Entry.new(category:"ARTICLE")
+    
     @author = Field.new(name:"AUTHOR")
+    @title = Field.new(name:"TITLE")
   end
 
   # GET /entries/1/edit
@@ -74,6 +76,7 @@ class EntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def entry_params
+      asd
       params.require(:entry).permit(:category)
     end
 end

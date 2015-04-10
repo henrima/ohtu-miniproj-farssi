@@ -17,14 +17,23 @@
   </div>
 
   <div class="field">
-    <%= f.label @entry.fields %><br>
-    <%= f.text_field @entry.fields %>
+    <%= fields_for(:author, @entry.fields.new) do |a| %>
+      <%= a.label "AUTHOR" %><br>
+      <%= a.text_field :content %>
+    <% end %>
   </div>
 
-
   <div class="field">
-    <%= label_tag @author.name %><br>
-    <%= text_field_tag @author.content %>
+    <%= fields_for(:title, @entry.fields.new) do |a| %>
+      <%= a.label "TITLE" %><br>
+      <%= a.text_field :content %>
+    <% end %>
+  </div>
+  <div class="field">
+    <%= fields_for(:journal, @entry.fields.new) do |a| %>
+      <%= a.label "JOURNAL" %><br>
+      <%= a.text_field :content %>
+    <% end %>
   </div>
 
 
