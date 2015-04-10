@@ -67,5 +67,6 @@ gem 'httparty'
 gem 'bootstrap-sass'
 group :development do
   gem 'rails_layout'
+  gem 'guard-rspec', require: false
 end
 
