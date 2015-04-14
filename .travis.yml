@@ -13,7 +13,6 @@ deploy:
   on:
    repo: henrima/ohtu-miniproj-farssi
 
-# blacklist
 branches:
-	only:
-		-master
+  only:
+   - master
