@@ -3,9 +3,13 @@ Rails.application.routes.draw do
 
   resources :entries
 
-  get 'newarticle', to: 'entries#newarticle'
-  post 'newarticle', to: 'entries#createarticle'
+  root 'entries#new'
 
+
+  get 'new/:category', to: 'entries#new_thing', as: :new_thing
+
+  get 'newarticle', to: 'entries#newarticle'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

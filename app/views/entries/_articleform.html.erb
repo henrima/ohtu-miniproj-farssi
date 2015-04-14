@@ -16,25 +16,15 @@
     <%= f.text_field :category %>
   </div>
 
-  <div class="field">
-    <%= fields_for(:author) do |a| %>
-      <%= a.label "AUTHOR" %><br>
-      <%= a.text_field :content %>
-    <% end %>
-  </div>
 
+<% @fields[@entry.category].each do |f| %>
   <div class="field">
-    <%= fields_for(:title) do |a| %>
-      <%= a.label "TITLE" %><br>
+    <%= fields_for(f) do |a| %>
+      <%= a.label f %><br>
       <%= a.text_field :content %>
     <% end %>
   </div>
-  <div class="field">
-    <%= fields_for(:journal) do |a| %>
-      <%= a.label "JOURNAL" %><br>
-      <%= a.text_field :content %>
-    <% end %>
-  </div>
+<% end %>
 
 
   <div class="actions">

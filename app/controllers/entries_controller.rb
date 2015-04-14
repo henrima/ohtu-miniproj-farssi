@@ -1,6 +1,7 @@
 class EntriesController < ApplicationController
   before_action :set_entry, only: [:show, :edit, :update, :destroy]
 
+
   # GET /entries
   # GET /entries.json
   def index
@@ -14,13 +15,17 @@ class EntriesController < ApplicationController
 
   # GET /entries/new
   def new
-    @entry = Entry.new
+    @fields = get_fields
+  end
+
+  def new_thing
+    @entry = Entry.new(category:params['category'])
+    @fields = get_fields
   end
 
   def newarticle
     @entry = Entry.new(category:"ARTICLE")
-    
-    @stuff = {}
+    @fields = get_fields
   end
 
   # GET /entries/1/edit
@@ -31,11 +36,10 @@ class EntriesController < ApplicationController
   # POST /entries.json
   def create
     @entry = Entry.new(category:params['entry']['category'])
-    look_what_category_post_is_and_create_fields
-
 
     respond_to do |format|
       if @entry.save
+        look_what_category_post_is_and_create_fields
         format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
         format.json { render :show, status: :created, location: @entry }
       else
@@ -72,14 +76,27 @@ class EntriesController < ApplicationController
   private
 
     def look_what_category_post_is_and_create_fields
-      fields = []
-      if @entry.category == 'ARTICLE'
-        fields = ['author', 'title', 'journal', 'year', 'volume']
-      end
+      
+      fields = get_fields
 
-      create_fields_and_attach_them_to_entry
+      correct_fields = fields[@entry.category]
+      correct_fields.each do |f|
+        # tsekkaa onko ko. fieldi required
+        # jos on required, mutta field on tyhjä, palauta false
+        # tsekkaa ylempänä että jos on false niin entryn tallennus perutaan
+        field = Field.new(content:params[f]['content'], name:f, entry_id:@entry.id)
+        field.save
+      end
     end
 
+    def get_fields 
+      return {
+        'ARTICLE' => ['author', 'title', 'journal', 'year', 'volume',
+                        'number', 'pages', 'month', 'note', 'key'],
+        'BOOK' => ['author/editor', 'title', 'publisher', 'year',
+                         'volume/number', 'series', 'address', 'edition', 'month', 'note', 'key'],
+      }
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_entry

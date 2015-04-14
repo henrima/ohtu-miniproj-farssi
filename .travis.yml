@@ -1,0 +1,18 @@
+language: ruby
+rvm:
+- 2.2.0
+script:
+- bundle exec rake db:migrate --trace
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rspec -fd spec/
+deploy:
+  provider: heroku
+  api_key: 0499a6cf-5900-4e23-9f97-026a6652d93f
+  app: minifarssi
+  on:
+   repo: henrima/ohtu-miniproj-farssi
+
+branches:
+  only:
+   - master
