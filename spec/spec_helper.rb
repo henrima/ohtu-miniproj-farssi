@@ -18,6 +18,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'simplecov'
 SimpleCov.start
+require 'bibtex_exporter'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
@@ -59,6 +60,10 @@ RSpec.configure do |config|
   #   - http://teaisaweso.me/blog/2013/05/27/rspecs-new-message-expectation-syntax/
   #   - http://myronmars.to/n/dev-blog/2014/05/notable-changes-in-rspec-3#new__config_option_to_disable_rspeccore_monkey_patching
   config.disable_monkey_patching!
+
+  # This setting enables warnings. It's recommended, but in some cases may
+  # be too noisy due to issues in dependencies.
+  config.warnings = true
 
   # Many RSpec users commonly either run the entire suite or an individual
   # file, and it's useful to allow more verbose output when running an
