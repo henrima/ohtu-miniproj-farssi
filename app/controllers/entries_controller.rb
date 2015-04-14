@@ -20,8 +20,7 @@ class EntriesController < ApplicationController
   def newarticle
     @entry = Entry.new(category:"ARTICLE")
     
-    @author = Field.new(name:"AUTHOR")
-    @title = Field.new(name:"TITLE")
+    @stuff = {}
   end
 
   # GET /entries/1/edit
@@ -31,7 +30,9 @@ class EntriesController < ApplicationController
   # POST /entries
   # POST /entries.json
   def create
-    @entry = Entry.new(entry_params)
+    @entry = Entry.new(category:params['entry']['category'])
+    look_what_category_post_is_and_create_fields
+
 
     respond_to do |format|
       if @entry.save
@@ -69,6 +70,17 @@ class EntriesController < ApplicationController
   end
 
   private
+
+    def look_what_category_post_is_and_create_fields
+      fields = []
+      if @entry.category == 'ARTICLE'
+        fields = ['author', 'title', 'journal', 'year', 'volume']
+      end
+
+      create_fields_and_attach_them_to_entry
+    end
+
+
     # Use callbacks to share common setup or constraints between actions.
     def set_entry
       @entry = Entry.find(params[:id])
@@ -76,7 +88,7 @@ class EntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def entry_params
-      asd
-      params.require(:entry).permit(:category)
+      #asd
+      #params.require(:entry).permit(:category)
     end
 end

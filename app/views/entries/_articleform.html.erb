@@ -17,20 +17,20 @@
   </div>
 
   <div class="field">
-    <%= fields_for(:author, @entry.fields.new) do |a| %>
+    <%= fields_for(:author) do |a| %>
       <%= a.label "AUTHOR" %><br>
       <%= a.text_field :content %>
     <% end %>
   </div>
 
   <div class="field">
-    <%= fields_for(:title, @entry.fields.new) do |a| %>
+    <%= fields_for(:title) do |a| %>
       <%= a.label "TITLE" %><br>
       <%= a.text_field :content %>
     <% end %>
   </div>
   <div class="field">
-    <%= fields_for(:journal, @entry.fields.new) do |a| %>
+    <%= fields_for(:journal) do |a| %>
       <%= a.label "JOURNAL" %><br>
       <%= a.text_field :content %>
     <% end %>
