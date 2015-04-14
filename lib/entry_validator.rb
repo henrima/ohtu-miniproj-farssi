@@ -1,3 +1,7 @@
+# TODO: crossref field is special (always allowed?)
+# TODO: eg. book class has required author OR editor
+
+
 module EntryValidator
   def EntryValidator.field_db 
     {
