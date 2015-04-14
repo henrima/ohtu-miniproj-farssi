@@ -18,3 +18,7 @@
 
 # Ignore coverage reports.
 /coverage/
+
+.idea/workspace.xml
+
+*.xml
