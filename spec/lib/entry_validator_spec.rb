@@ -65,6 +65,32 @@ RSpec.describe 'EntryValidator' do
     it 'does not require number' do
       do_not_require article_entry, 'number'
     end
+
+    it 'does not allow series' do
+      do_not_allow article_entry, 'series'
+    end
+
+    it 'does not require optional fields' do
+      fields = EntryValidator.field_db['article']
+      fields.each do |field, required|
+        if not required
+          do_not_require article_entry, field
+        end
+      end
+    end
+
+    describe 'does not require optional field' do
+      fields = EntryValidator.field_db['article']
+      fields.each do |field, required|
+        if not required
+          it field do
+            do_not_require article_entry, field
+          end
+        end
+      end
+    end
+
+
   end
 
 
@@ -78,6 +104,11 @@ RSpec.describe 'EntryValidator' do
     def do_not_require(entry, field)
       entry[field] = nil
       expect(EntryValidator.validate entry).to eq true
+    end
+
+    def do_not_allow(entry, field)
+      entry[field] = 'hello'
+      expect(EntryValidator.validate entry).to eq false
     end
 end
 
