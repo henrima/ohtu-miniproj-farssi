@@ -15,10 +15,5 @@ deploy:
 
 # blacklist
 branches:
-  except:
-    - staging
-
-# whitelist
-branches:
-  only:
-    - master
+	only:
+		-master
