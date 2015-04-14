@@ -30,51 +30,13 @@ RSpec.describe 'EntryValidator' do
       expect(EntryValidator.validate article_entry).to eq true
     end
 
-    it 'requires author' do
-      require_field article_entry, 'author'
-    end
-
-    it 'requires title' do
-      require_field article_entry, 'title'
-    end
-
-    it 'requires journal' do
-      require_field article_entry, 'journal'
-    end
-
-    it 'requires year' do
-      require_field article_entry, 'year'
-    end
-
-    it 'requires volume' do
-      require_field article_entry, 'volume'
-    end
-
-    it 'does not require number' do
-      do_not_require article_entry, 'number'
-    end
-
-    it 'does not require number' do
-      do_not_require article_entry, 'number'
-    end
-
-    it 'does not require number' do
-      do_not_require article_entry, 'number'
-    end
-
-    it 'does not require number' do
-      do_not_require article_entry, 'number'
-    end
-
-    it 'does not allow series' do
-      do_not_allow article_entry, 'series'
-    end
-
-    it 'does not require optional fields' do
+    describe 'requires required field' do
       fields = EntryValidator.field_db['article']
       fields.each do |field, required|
-        if not required
-          do_not_require article_entry, field
+        if required
+          it field do
+            require_field article_entry, field
+          end
         end
       end
     end
@@ -90,7 +52,15 @@ RSpec.describe 'EntryValidator' do
       end
     end
 
-
+    describe 'does not allow nonrequired-nonoptional field' do
+      allfields = EntryValidator.all_fields
+      fields = EntryValidator.field_db['article'].keys
+      (allfields - fields).each do |field|
+        it field do
+          do_not_allow article_entry, field
+        end
+      end
+    end
   end
 
 
