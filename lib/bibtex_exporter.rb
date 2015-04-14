@@ -19,7 +19,7 @@ class BibtexExporter
 
   def self.fixScandicCharacters(string)
     fixedString = ""
-    fixes = { "ä" => '{\"a}'}
+    fixes = { "ä" => '{\"a}', "ö" => '{\"o}', "Å" => '{\"o}'}
 
       string.split("").each do |i|
 
