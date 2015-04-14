@@ -17,7 +17,7 @@ RSpec.describe 'EntryValidator' do
   } }
 
   # TODO: refactor using meta-programming?
-  it 'requires an article entry' do
+  it 'requires an entry type' do
     require_field article_entry, 'entry_type'
   end
 
