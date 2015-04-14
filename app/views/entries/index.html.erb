@@ -5,21 +5,28 @@
 <table>
   <thead>
     <tr>
-      <th>Category</th>
-      <th colspan="3"></th>
+      <th colspan="6">Category</th>
+      <th></th>
+      <th colspan="6">Fields</th>
+      <th></th>      
     </tr>
   </thead>
+
+
 
   <tbody>
     <% @entries.each do |entry| %>
       <tr>
-        <td><%= entry.category %></td>
-        <td><%= link_to 'Show', entry %></td>
-        <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
-        <td><%= link_to 'Destroy', entry, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <td colspan="6"><%= link_to entry.category, entry %></td>
+        <td></td>
+        <% entry.fields.each do |field| %>
+          <td colspan="6"><%= field.name %></td>
+          <td></td>
+        <% end %>
+      </tr>     
     <% end %>
   </tbody>
+
 </table>
 
 <br>
