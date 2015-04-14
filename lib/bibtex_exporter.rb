@@ -19,7 +19,8 @@ class BibtexExporter
 
   def self.fixScandicCharacters(string)
     fixedString = ""
-    fixes = { "ä" => '{\"a}', "ö" => '{\"o}', "Å" => '{\"o}'}
+    fixes = { "ä" => '{\"a}', "ö" => '{\"o}', "å" => '{\aa}',
+              "Ä" => '{\"A}', "Ö" => '{\"O}', "Å" => '{\AA}'}
 
       string.split("").each do |i|
 
@@ -34,9 +35,11 @@ class BibtexExporter
     end
 
 
+  puts(fixScandicCharacters("ÄÖÄäöä"))
 
 
-  input =   { "author" => "Kake", "title" => "Nykänen vankilassa", "journal" => "Seitsemän päivää",
+
+  input =   { "author" => "KÄa3ke", "title" => "Nykänen vankilassa", "journal" => "Seitsemän päivää",
               "year" => "2014", "volume" => "asdasd", "number" => "34", "pages" => "13-14", "month" => "feb",
               "crossref" => "KB1", "note" => "hienoa"}
 
