@@ -101,8 +101,6 @@ class EntriesController < ApplicationController
                          'editor', 'volume/number', 'series', 'pages', 'address', 'month', 'organization', 'publisher', 'note', 'key'],
         'INBOOK' => ['author/editor', 'title', 'chapter/pages', 'publisher', 'year',
                           'volume/number', 'series', 'type', 'address', 'edition', 'month', 'note', 'key'],
-        'INBOOK' => ['author/editor', 'title', 'chapter/pages', 'publisher', 'year',
-                          'volume/number', 'series', 'type', 'address', 'edition', 'month', 'note', 'key'],
         'INPROCEEDINGS' => ['author', 'title', 'booktitle', 'year', 
                          'editor', 'volume/number', 'series', 'pages', 'address', 'month', 'organization', 'publisher', 'note', 'key'],
         'MANUAL' => ['title',
