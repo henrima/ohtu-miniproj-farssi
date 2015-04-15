@@ -90,37 +90,7 @@ class EntriesController < ApplicationController
     end
 
     def get_fields 
-      return {
-        'ARTICLE' => ['author', 'title', 'journal', 'year', 'volume',
-                        'number', 'pages', 'month', 'note', 'key'],
-        'BOOK' => ['author/editor', 'title', 'publisher', 'year',
-                         'volume/number', 'series', 'address', 'edition', 'month', 'note', 'key'],
-        'BOOKLET' => ['title', 
-                         'author', 'howpublished', 'address', 'month', 'year', 'note', 'key'],
-        'CONFERENCE' => ['author', 'title', 'booktitle', 'year', 
-                         'editor', 'volume/number', 'series', 'pages', 'address', 'month', 'organization', 'publisher', 'note', 'key'],
-        'INBOOK' => ['author/editor', 'title', 'chapter/pages', 'publisher', 'year',
-                          'volume/number', 'series', 'type', 'address', 'edition', 'month', 'note', 'key'],
-        'INBOOK' => ['author/editor', 'title', 'chapter/pages', 'publisher', 'year',
-                          'volume/number', 'series', 'type', 'address', 'edition', 'month', 'note', 'key'],
-        'INPROCEEDINGS' => ['author', 'title', 'booktitle', 'year', 
-                         'editor', 'volume/number', 'series', 'pages', 'address', 'month', 'organization', 'publisher', 'note', 'key'],
-        'MANUAL' => ['title',
-                          'author', 'organization', 'address', 'edition', 'month', 'year', 'note', 'key'],
-        'MASTERSTHESIS' => ['author', 'title', 'school', 'year',
-                          'type', 'address', 'month', 'note', 'key'],
-        'MISC' => ['none',
-                           'author', 'title', 'howpublished', 'month', 'year', 'note', 'key'],
-        'PHDTHESIS' => ['author', 'title', 'school', 'year',
-                           'type', 'address', 'month', 'note', 'key'],
-        'PROCEEDINGS' => ['title', 'year',
-                           'editor', 'volume/number', 'series', 'address', 'month', 'publisher', 'organization', 'note', 'key'],
-        'TECHREPORT' => ['author', 'title', 'institution', 'year',
-                           'type', 'number', 'address', 'month', 'note', 'key'],
-        'UNPUBLISHED' => ['author', 'title', 'note',
-                           'month', 'year', 'key'],
-
-      }
+      return {}
     end
 
     # Use callbacks to share common setup or constraints between actions.
