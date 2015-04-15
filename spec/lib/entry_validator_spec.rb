@@ -2,9 +2,9 @@ require 'rails_helper'
 require 'entry_validator'
 
 RSpec.describe 'EntryValidator' do
-  let(:article_entry) { {
-    'entry_type' => 'ARTICLE',
-    'cite_key' => 'art1',
+  let(:article_entry) { Entry.new(category:'ARTICLE') }
+  let(:article_params) { {
+    #'cite_key' => 'art1',
     'author' => 'Arttu Authori',
     'title' => 'Article Title',
     'journal' => 'The Journal',
@@ -18,24 +18,24 @@ RSpec.describe 'EntryValidator' do
   } }
 
   # TODO: refactor using meta-programming?
-  it 'requires an entry type' do
-    require_field article_entry, 'entry_type'
-  end
-
-  it 'requires a cite key' do
-    require_field article_entry, 'cite_key'
-  end
+  #it 'requires an entry type' do
+  #  require_field article_entry, 'entry_type'
+  #end
+#
+  #it 'requires a cite key' do
+  #  require_field article_entry, 'cite_key'
+  #end
 
   describe 'article' do
     it 'validates a correct article class' do
-      expect(EntryValidator.validate article_entry).to eq true
+      expect(EntryValidator.validate article_entry, article_params).to eq true
     end
 
     describe 'requires required field' do
       fields = EntryValidator.field_db['ARTICLE']['required']
       fields.each do |field|
         it field do
-          require_field article_entry, field
+          require_field article_entry, article_params, field
         end
       end
     end
@@ -44,7 +44,7 @@ RSpec.describe 'EntryValidator' do
       fields = EntryValidator.field_db['ARTICLE']['optional']
       fields.each do |field|
         it field do
-          do_not_require article_entry, field
+          do_not_require article_entry, article_params, field
         end
       end
     end
@@ -54,7 +54,7 @@ RSpec.describe 'EntryValidator' do
       fields = EntryValidator.field_db['ARTICLE'].values.flatten
       (allfields - fields).each do |field|
         it field do
-          do_not_allow article_entry, field
+          do_not_allow article_entry, article_params, field
         end
       end
     end
@@ -63,19 +63,19 @@ RSpec.describe 'EntryValidator' do
 
   private
 
-    def require_field(entry, field)
-      entry[field] = nil
-      expect(EntryValidator.validate entry).to eq false
+    def require_field(entry, params, field)
+      params[field] = nil
+      expect(EntryValidator.validate entry, params).to eq false
     end
 
-    def do_not_require(entry, field)
-      entry[field] = nil
-      expect(EntryValidator.validate entry).to eq true
+    def do_not_require(entry, params, field)
+      params[field] = nil
+      expect(EntryValidator.validate entry, params).to eq true
     end
 
-    def do_not_allow(entry, field)
-      entry[field] = 'hello'
-      expect(EntryValidator.validate entry).to eq false
+    def do_not_allow(entry, params, field)
+      params[field] = 'hello'
+      expect(EntryValidator.validate entry, params).to eq false
     end
 end
 
