@@ -52,12 +52,12 @@ RSpec.describe EntriesController, type: :controller do
     end
   end
 
-  describe "GET #new" do
-    it "assigns a new entry as @entry" do
-      get :new, {}, valid_session
-      expect(assigns(:entry)).to be_a_new(Entry)
-    end
-  end
+#  describe "GET #new" do
+#    it "assigns a new entry as @entry" do
+#      get :new, {}, valid_session
+#      expect(assigns(:entry)).to be_a_new(Entry)
+#    end
+#  end
 
   describe "GET #edit" do
     it "assigns the requested entry as @entry" do
