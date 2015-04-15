@@ -91,34 +91,62 @@ class EntriesController < ApplicationController
 
     def get_fields 
       return {
-        'ARTICLE' => ['author', 'title', 'journal', 'year', 'volume',
-                        'number', 'pages', 'month', 'note', 'key'],
-        'BOOK' => ['author/editor', 'title', 'publisher', 'year',
-                         'volume/number', 'series', 'address', 'edition', 'month', 'note', 'key'],
-        'BOOKLET' => ['title', 
-                         'author', 'howpublished', 'address', 'month', 'year', 'note', 'key'],
-        'CONFERENCE' => ['author', 'title', 'booktitle', 'year', 
-                         'editor', 'volume/number', 'series', 'pages', 'address', 'month', 'organization', 'publisher', 'note', 'key'],
-        'INBOOK' => ['author/editor', 'title', 'chapter/pages', 'publisher', 'year',
-                          'volume/number', 'series', 'type', 'address', 'edition', 'month', 'note', 'key'],
-        'INBOOK' => ['author/editor', 'title', 'chapter/pages', 'publisher', 'year',
-                          'volume/number', 'series', 'type', 'address', 'edition', 'month', 'note', 'key'],
-        'INPROCEEDINGS' => ['author', 'title', 'booktitle', 'year', 
-                         'editor', 'volume/number', 'series', 'pages', 'address', 'month', 'organization', 'publisher', 'note', 'key'],
-        'MANUAL' => ['title',
-                          'author', 'organization', 'address', 'edition', 'month', 'year', 'note', 'key'],
-        'MASTERSTHESIS' => ['author', 'title', 'school', 'year',
-                          'type', 'address', 'month', 'note', 'key'],
-        'MISC' => ['none',
-                           'author', 'title', 'howpublished', 'month', 'year', 'note', 'key'],
-        'PHDTHESIS' => ['author', 'title', 'school', 'year',
-                           'type', 'address', 'month', 'note', 'key'],
-        'PROCEEDINGS' => ['title', 'year',
-                           'editor', 'volume/number', 'series', 'address', 'month', 'publisher', 'organization', 'note', 'key'],
-        'TECHREPORT' => ['author', 'title', 'institution', 'year',
-                           'type', 'number', 'address', 'month', 'note', 'key'],
-        'UNPUBLISHED' => ['author', 'title', 'note',
-                           'month', 'year', 'key'],
+        'ARTICLE' => {
+                      'required' => ['author', 'title', 'journal', 'year', 'volume'],
+                      'optional' => ['number', 'pages', 'month', 'note', 'key']
+                      },
+        'BOOK' =>    {
+                      'required' => ['author/editor', 'title', 'publisher', 'year'],
+                      'optional' => ['volume/number', 'series', 'address', 'edition', 'month', 'note', 'key']
+                      },
+        'BOOKLET' => {
+                      'required' => ['title'], 
+                      'optional' => ['author', 'howpublished', 'address', 'month', 'year', 'note', 'key']
+                      },
+        'CONFERENCE' => {
+                      'required' => ['author', 'title', 'booktitle', 'year'], 
+                      'optional' => ['editor', 'volume/number', 'series', 'pages', 'address', 'month', 'organization', 'publisher', 'note', 'key']
+                      },
+        'INBOOK' => {
+                      'required' => ['author/editor', 'title', 'chapter/pages', 'publisher', 'year'],
+                      'optional' => ['volume/number', 'series', 'type', 'address', 'edition', 'month', 'note', 'key']
+                      },
+        'INBOOK' => {
+                      'required' => ['author/editor', 'title', 'chapter/pages', 'publisher', 'year'],
+                      'optional' => ['volume/number', 'series', 'type', 'address', 'edition', 'month', 'note', 'key']
+                      },
+        'INPROCEEDINGS' => {
+                      'required' => ['author', 'title', 'booktitle', 'year'], 
+                      'optional' => ['editor', 'volume/number', 'series', 'pages', 'address', 'month', 'organization', 'publisher', 'note', 'key']
+                      },
+        'MANUAL' => {
+                      'required' => ['title'],
+                      'optional' => ['author', 'organization', 'address', 'edition', 'month', 'year', 'note', 'key']
+                      },
+        'MASTERSTHESIS' => {
+                      'required' => ['author', 'title', 'school', 'year'],
+                      'optional' => ['type', 'address', 'month', 'note', 'key']
+                      },
+        'MISC' => {
+                      'required' => ['none'],
+                      'optional' => ['author', 'title', 'howpublished', 'month', 'year', 'note', 'key']
+                      },
+        'PHDTHESIS' => {
+                      'required' => ['author', 'title', 'school', 'year'],
+                      'optional' => ['type', 'address', 'month', 'note', 'key']
+                      },
+        'PROCEEDINGS' => {
+                      'required' => ['title', 'year'],
+                      'optional' => ['editor', 'volume/number', 'series', 'address', 'month', 'publisher', 'organization', 'note', 'key']
+                      },
+        'TECHREPORT' => {
+                      'required' => ['author', 'title', 'institution', 'year'],
+                      'optional' => ['type', 'number', 'address', 'month', 'note', 'key']
+                      },
+        'UNPUBLISHED' => {
+                      'required' => ['author', 'title', 'note'],
+                      'optional' => ['month', 'year', 'key']
+                      },
 
       }
     end
