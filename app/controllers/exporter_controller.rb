@@ -1,102 +1,43 @@
-class EntriesController < ApplicationController
-  before_action :set_entry, only: [:show, :edit, :update, :destroy]
+class ExporterController < ApplicationController
 
 
-  # GET /entries
-  # GET /entries.json
   def index
-    @entries = Entry.all
   end
 
-  # GET /entries/1
-  # GET /entries/1.json
-  def show
-  end
+  def export
+    # SAMPLE INPUT FOR GENERATE METHOD
+    #input =   { "author" => "KÄa3ke", "title" => "Nykänen vankilassa", "journal" => "Seitsemän päivää",
+    #           "year" => "2014", "volume" => "asdasd", "number" => "34", "pages" => "13-14", "month" => "feb",
+    #           "crossref" => "KB1", "note" => "hienoa"}
+    #generate("article", "KB1", input)
 
-  # GET /entries/new
-  def new
-    @fields = get_fields
-  end
+    string = ''
 
-  def new_thing
-    @entry = Entry.new(category:params['category'])
-    @fields = get_fields
-  end
+    entries = Entry.all
+    entries.each do |e|
+      input = {}
+      key = ''
 
-  # GET /entries/1/edit
-  def edit
-  end
-
-  # POST /entries
-  # POST /entries.json
-  def create
-    @entry = Entry.new(category:params['entry']['category'])
-
-    respond_to do |format|
-      if @entry.save and look_what_category_post_is_and_create_fields
-        format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
-        format.json { render :show, status: :created, location: @entry }
-      else
-    @fields = get_fields
-        format.html { render :new }
-        format.json { render json: @entry.errors, status: :unprocessable_entity }
+      fields = e.fields
+      fields.each do |f|
+        next if f.content == ''
+        if f.name == 'key'
+          key = f.content
+        else
+          input[f.name] = f.content
+        end
       end
-    end
-  end
+      category = e.category
 
-  # PATCH/PUT /entries/1
-  # PATCH/PUT /entries/1.json
-  def update
-    respond_to do |format|
-      if @entry.update(entry_params)
-        format.html { redirect_to @entry, notice: 'Entry was successfully updated.' }
-        format.json { render :show, status: :ok, location: @entry }
-      else
-        format.html { render :edit }
-        format.json { render json: @entry.errors, status: :unprocessable_entity }
-      end
+      # alle input_to_s tilalle generate
+      # string += generate(category, key, input)
+      string += input.to_s
     end
-  end
 
-  # DELETE /entries/1
-  # DELETE /entries/1.json
-  def destroy
-    @entry.destroy
-    respond_to do |format|
-      format.html { redirect_to entries_url, notice: 'Entry was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    render plain: string
   end
 
   private
-
-    def look_what_category_post_is_and_create_fields
-      answer = true
-      fields = get_fields
-
-      required_fields = fields[@entry.category]['required']
-      required_fields.each do |f|
-        # tsekkaa onko ko. fieldi required
-        # jos on required, mutta field on tyhjä, palauta false
-        # tsekkaa ylempänä että jos on false niin entryn tallennus perutaan
-        # params => { 'author' =>  'pekka' }
-        parami = params[f]['content']
-        if parami.nil? or parami == ''
-          answer = false
-        end
-        field = Field.new(content:parami, name:f, entry_id:@entry.id)
-        field.save
-      end
-      optional_fields = fields[@entry.category]['optional']
-      optional_fields.each do |f|
-        field = Field.new(content:params[f]['content'], name:f, entry_id:@entry.id)
-        field.save
-      end
-      if !answer
-        @entry.destroy
-      end
-      return answer
-    end
 
     def get_fields 
       return {
@@ -160,14 +101,4 @@ class EntriesController < ApplicationController
       }
     end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_entry
-      @entry = Entry.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def entry_params
-      #asd
-      #params.require(:entry).permit(:category)
-    end
 end
