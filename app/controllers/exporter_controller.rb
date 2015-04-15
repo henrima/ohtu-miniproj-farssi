@@ -1,6 +1,5 @@
 class ExporterController < ApplicationController
 
-
   def index
   end
 
@@ -11,6 +10,7 @@ class ExporterController < ApplicationController
     #           "crossref" => "KB1", "note" => "hienoa"}
     #generate("article", "KB1", input)
 
+    bib = BibtexExporter.new 
     string = ''
 
     entries = Entry.all
@@ -30,8 +30,8 @@ class ExporterController < ApplicationController
       category = e.category
 
       # alle input_to_s tilalle generate
-      # string += generate(category, key, input)
-      string += input.to_s
+      string += bib.generate(category, key, input)
+      #string += input.to_s
     end
 
     render plain: string
