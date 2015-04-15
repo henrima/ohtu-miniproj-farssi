@@ -82,9 +82,9 @@ RSpec.describe 'EntryValidator' do
       expect(EntryValidator.validate entry, params).to eq true
     end
 
-    def do_not_allow(entry, params, field)
-      params[field] = 'hello'
-      expect(EntryValidator.validate entry, params).to eq false
-    end
+#    def do_not_allow(entry, params, field)
+#      params[field] = 'hello'
+#      expect(EntryValidator.validate entry, params).to eq false
+#    end
 end
 
