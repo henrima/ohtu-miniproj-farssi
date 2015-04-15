@@ -38,7 +38,7 @@ class EntriesController < ApplicationController
     entry_valid = EntryValidator.validate @entry, clean_params
 
     respond_to do |format|
-      if entry_valid and @entry.save and look_what_category_post_is_and_create_fields
+      if entry_valid and @entry.save and create_fields(clean_params)
         format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
         format.json { render :show, status: :created, location: @entry }
       else
@@ -75,32 +75,15 @@ class EntriesController < ApplicationController
 
   private
 
-    def look_what_category_post_is_and_create_fields
-      answer = true
-      fields = get_fields
-
-      required_fields = fields[@entry.category]['required']
-      required_fields.each do |f|
-        # tsekkaa onko ko. fieldi required
-        # jos on required, mutta field on tyhjä, palauta false
-        # tsekkaa ylempänä että jos on false niin entryn tallennus perutaan
-        # params => { 'author' =>  'pekka' }
-        parami = params[f]['content']
-        if parami.nil? or parami == ''
-          answer = false
+    def create_fields(params)
+      params.each do |field, content|
+        field = Field.new(content:content, name:field, entry_id:@entry.id)
+        if !field.save
+          # TODO: remove fields which were saved + entry
+          return false
         end
-        field = Field.new(content:parami, name:f, entry_id:@entry.id)
-        field.save
       end
-      optional_fields = fields[@entry.category]['optional']
-      optional_fields.each do |f|
-        field = Field.new(content:params[f]['content'], name:f, entry_id:@entry.id)
-        field.save
-      end
-      if !answer
-        @entry.destroy
-      end
-      return answer
+      return true
     end
 
     def get_fields 
