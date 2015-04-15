@@ -1,5 +1,5 @@
 class BibtexExporter
-  def self.generate(type, key, inputHash)
+  def generate(type, key, inputHash)
     stringToReturn = ""
     stringToReturn += "@" + type + "{" + key + ",\n"
 
@@ -11,7 +11,7 @@ class BibtexExporter
     inputHash.each do |key, value|
       index -= 1
       ending = "\n" if index == 0
-      stringToReturn += "  " + key + " = " + fixScandicCharacters(value) + ending
+      stringToReturn += "  " + key + " = \"" + fixScandicCharacters(value) + "\"" + ending
     end
 
 
@@ -19,7 +19,7 @@ class BibtexExporter
     return stringToReturn
   end
 
-  def self.fixScandicCharacters(string)
+  def fixScandicCharacters(string)
     fixedString = ""
     fixes = { "ä" => '{\"a}', "ö" => '{\"o}', "å" => '{\aa}',
               "Ä" => '{\"A}', "Ö" => '{\"O}', "Å" => '{\AA}'}
