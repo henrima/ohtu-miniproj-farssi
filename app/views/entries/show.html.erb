@@ -9,11 +9,13 @@
 	<tr>
 		<th>Name</th>
 		<th>Content</th>
+		<th>&nbsp;</th>
 	</tr>
 	<% @entry.fields.each do |f| %>
 		<tr>
 			<td><%= f.name %></td>
 			<td><%= f.content %></td>
+			<td><%= link_to 'Show', f %></td>
 		</tr>
 	<% end %>
 </table>
