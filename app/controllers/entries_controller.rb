@@ -32,11 +32,12 @@ class EntriesController < ApplicationController
   # POST /entries
   # POST /entries.json
   def create
-    @entry = Entry.new(category:params['entry']['category'])
+    category = params['entry']['category']
+    clean_params = EntryValidator.clean_params category, params
+    @entry = Entry.new(category:category)
+    entry_valid = EntryValidator.validate @entry, clean_params
 
     respond_to do |format|
-      clean_params = EntryValidator.clean_params params
-      entry_valid = EntryValidator.validate @entry, clean_params
       if entry_valid and @entry.save and look_what_category_post_is_and_create_fields
         format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
         format.json { render :show, status: :created, location: @entry }
