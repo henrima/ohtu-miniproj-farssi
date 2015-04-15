@@ -16,8 +16,18 @@
     <%= f.text_field :category %>
   </div>
 
+<h3>Required fields</h3>
+<% @fields[@entry.category]['required'].each do |f| %>
+  <div class="field">
+    <%= fields_for(f) do |a| %>
+      <%= a.label f %><br>
+      <%= a.text_field :content %>
+    <% end %>
+  </div>
+<% end %>
 
-<% @fields[@entry.category].each do |f| %>
+<h3>Optional fields</h3>
+<% @fields[@entry.category]['optional'].each do |f| %>
   <div class="field">
     <%= fields_for(f) do |a| %>
       <%= a.label f %><br>
