@@ -3,7 +3,7 @@ require 'entry_validator'
 
 RSpec.describe 'EntryValidator' do
   let(:article_entry) { {
-    'entry_type' => 'article',
+    'entry_type' => 'ARTICLE',
     'cite_key' => 'art1',
     'author' => 'Arttu Authori',
     'title' => 'Article Title',
@@ -14,6 +14,7 @@ RSpec.describe 'EntryValidator' do
     'pages' => '24--9283',
     'month' => 'June',
     'note' => 'Some result it is!',
+    'key' => 'Arttu Authori',
   } }
 
   # TODO: refactor using meta-programming?
@@ -31,30 +32,26 @@ RSpec.describe 'EntryValidator' do
     end
 
     describe 'requires required field' do
-      fields = EntryValidator.field_db['article']
-      fields.each do |field, required|
-        if required
-          it field do
-            require_field article_entry, field
-          end
+      fields = EntryValidator.field_db['ARTICLE']['required']
+      fields.each do |field|
+        it field do
+          require_field article_entry, field
         end
       end
     end
 
     describe 'does not require optional field' do
-      fields = EntryValidator.field_db['article']
-      fields.each do |field, required|
-        if not required
-          it field do
-            do_not_require article_entry, field
-          end
+      fields = EntryValidator.field_db['ARTICLE']['optional']
+      fields.each do |field|
+        it field do
+          do_not_require article_entry, field
         end
       end
     end
 
     describe 'does not allow nonrequired-nonoptional field' do
       allfields = EntryValidator.all_fields
-      fields = EntryValidator.field_db['article'].keys
+      fields = EntryValidator.field_db['ARTICLE'].values.flatten
       (allfields - fields).each do |field|
         it field do
           do_not_allow article_entry, field
