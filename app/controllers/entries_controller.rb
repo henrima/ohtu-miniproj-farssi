@@ -1,5 +1,8 @@
+require 'entry_validator'
+
 class EntriesController < ApplicationController
   before_action :set_entry, only: [:show, :edit, :update, :destroy]
+
 
   # GET /entries
   # GET /entries.json
@@ -14,11 +17,12 @@ class EntriesController < ApplicationController
 
   # GET /entries/new
   def new
-    @entry = Entry.new
+    @fields = get_fields
   end
 
-  def newarticle
-    
+  def new_thing
+    @entry = Entry.new(category:params['category'])
+    @fields = get_fields
   end
 
   # GET /entries/1/edit
@@ -28,13 +32,17 @@ class EntriesController < ApplicationController
   # POST /entries
   # POST /entries.json
   def create
-    @entry = Entry.new(entry_params)
+    category = params['entry']['category']
+    clean_params = EntryValidator.clean_params category, params
+    @entry = Entry.new(category:category)
+    entry_valid = EntryValidator.validate @entry, clean_params
 
     respond_to do |format|
-      if @entry.save
+      if entry_valid and @entry.save and create_fields(clean_params)
         format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
         format.json { render :show, status: :created, location: @entry }
       else
+        @fields = get_fields
         format.html { render :new }
         format.json { render json: @entry.errors, status: :unprocessable_entity }
       end
@@ -66,6 +74,22 @@ class EntriesController < ApplicationController
   end
 
   private
+
+    def create_fields(params)
+      params.each do |field, content|
+        field = Field.new(content:content, name:field, entry_id:@entry.id)
+        if !field.save
+          # TODO: remove fields which were saved + entry
+          return false
+        end
+      end
+      return true
+    end
+
+    def get_fields 
+      EntryValidator.field_db
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_entry
       @entry = Entry.find(params[:id])
@@ -73,6 +97,7 @@ class EntriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def entry_params
-      params.require(:entry).permit(:category)
+      #asd
+      #params.require(:entry).permit(:category)
     end
 end

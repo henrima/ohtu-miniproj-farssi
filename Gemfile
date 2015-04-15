@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
-ruby "2.2.0"
+
+ruby '2.2.0'
+
+# to fix unknown error
+gem 'rb-readline'
 
 
 gem 'activesupport'
