@@ -32,56 +32,82 @@ module EntryValidator
   end
 
   def EntryValidator.field_db 
-      {
-        'ARTICLE' => ['author', 'title', 'journal', 'year', 'volume',
-                        'number', 'pages', 'month', 'note', 'key'],
-        'BOOK' => ['author/editor', 'title', 'publisher', 'year',
-                         'volume/number', 'series', 'address', 'edition', 'month', 'note', 'key'],
-        'BOOKLET' => ['title', 
-                         'author', 'howpublished', 'address', 'month', 'year', 'note', 'key'],
-        'CONFERENCE' => ['author', 'title', 'booktitle', 'year', 
-                         'editor', 'volume/number', 'series', 'pages', 'address', 'month', 'organization', 'publisher', 'note', 'key'],
-        'INBOOK' => ['author/editor', 'title', 'chapter/pages', 'publisher', 'year',
-                          'volume/number', 'series', 'type', 'address', 'edition', 'month', 'note', 'key'],
-        'INPROCEEDINGS' => ['author', 'title', 'booktitle', 'year', 
-                         'editor', 'volume/number', 'series', 'pages', 'address', 'month', 'organization', 'publisher', 'note', 'key'],
-        'MANUAL' => ['title',
-                          'author', 'organization', 'address', 'edition', 'month', 'year', 'note', 'key'],
-        'MASTERSTHESIS' => ['author', 'title', 'school', 'year',
-                          'type', 'address', 'month', 'note', 'key'],
-        'MISC' => ['none',
-                           'author', 'title', 'howpublished', 'month', 'year', 'note', 'key'],
-        'PHDTHESIS' => ['author', 'title', 'school', 'year',
-                           'type', 'address', 'month', 'note', 'key'],
-        'PROCEEDINGS' => ['title', 'year',
-                           'editor', 'volume/number', 'series', 'address', 'month', 'publisher', 'organization', 'note', 'key'],
-        'TECHREPORT' => ['author', 'title', 'institution', 'year',
-                           'type', 'number', 'address', 'month', 'note', 'key'],
-        'UNPUBLISHED' => ['author', 'title', 'note',
-                           'month', 'year', 'key'],
+      return {
+        'ARTICLE' => {
+                      'required' => ['author', 'title', 'journal', 'year', 'volume'],
+                      'optional' => ['number', 'pages', 'month', 'note', 'key']
+                      },
+        'BOOK' =>    {
+                      'required' => ['author/editor', 'title', 'publisher', 'year'],
+                      'optional' => ['volume/number', 'series', 'address', 'edition', 'month', 'note', 'key']
+                      },
+        'BOOKLET' => {
+                      'required' => ['title'], 
+                      'optional' => ['author', 'howpublished', 'address', 'month', 'year', 'note', 'key']
+                      },
+        'CONFERENCE' => {
+                      'required' => ['author', 'title', 'booktitle', 'year'], 
+                      'optional' => ['editor', 'volume/number', 'series', 'pages', 'address', 'month', 'organization', 'publisher', 'note', 'key']
+                      },
+        'INBOOK' => {
+                      'required' => ['author/editor', 'title', 'chapter/pages', 'publisher', 'year'],
+                      'optional' => ['volume/number', 'series', 'type', 'address', 'edition', 'month', 'note', 'key']
+                      },
+        'INPROCEEDINGS' => {
+                      'required' => ['author', 'title', 'booktitle', 'year'], 
+                      'optional' => ['editor', 'volume/number', 'series', 'pages', 'address', 'month', 'organization', 'publisher', 'note', 'key']
+                      },
+        'MANUAL' => {
+                      'required' => ['title'],
+                      'optional' => ['author', 'organization', 'address', 'edition', 'month', 'year', 'note', 'key']
+                      },
+        'MASTERSTHESIS' => {
+                      'required' => ['author', 'title', 'school', 'year'],
+                      'optional' => ['type', 'address', 'month', 'note', 'key']
+                      },
+        'MISC' => {
+                      'required' => ['none'],
+                      'optional' => ['author', 'title', 'howpublished', 'month', 'year', 'note', 'key']
+                      },
+        'PHDTHESIS' => {
+                      'required' => ['author', 'title', 'school', 'year'],
+                      'optional' => ['type', 'address', 'month', 'note', 'key']
+                      },
+        'PROCEEDINGS' => {
+                      'required' => ['title', 'year'],
+                      'optional' => ['editor', 'volume/number', 'series', 'address', 'month', 'publisher', 'organization', 'note', 'key']
+                      },
+        'TECHREPORT' => {
+                      'required' => ['author', 'title', 'institution', 'year'],
+                      'optional' => ['type', 'number', 'address', 'month', 'note', 'key']
+                      },
+        'UNPUBLISHED' => {
+                      'required' => ['author', 'title', 'note'],
+                      'optional' => ['month', 'year', 'key']
+                      },
+
       }
-    }
   end
 
   def EntryValidator.validate entry
- #   return false if entry['entry_type'].nil?
- #   return false if entry['cite_key'].nil?
+    return false if entry['entry_type'].nil?
+    return false if entry['cite_key'].nil?
 
- #   return false if not field_db.keys.include? entry['entry_type']
- #   fields = field_db[entry['entry_type']]
+    return false if not field_db.keys.include? entry['entry_type']
+    fields = field_db[entry['entry_type']]
     
- #   # check that required fields are present
- #   fields['required'].each do |field|
- #     return false if entry[field].nil?
- #   end
+    # check that required fields are present
+    fields['required'].each do |field|
+      return false if entry[field].nil?
+    end
 
- #   all_fields = fields.values.flatten
+    all_fields = fields.values.flatten
     # check that only required/optional fields are present
- #   entry.each do |key, value|
- #     if not (key == 'entry_type' or key == 'cite_key') then
- #       return false if not fields.keys.include?(key) and not value.nil?
- #     end
- #   end
+    entry.each do |key, value|
+      if not (key == 'entry_type' or key == 'cite_key') then
+        return false if not all_fields.include?(key) and not value.nil?
+      end
+    end
 
     return true
   end
