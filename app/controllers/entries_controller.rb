@@ -1,3 +1,5 @@
+require 'entry_validator'
+
 class EntriesController < ApplicationController
   before_action :set_entry, only: [:show, :edit, :update, :destroy]
 
@@ -90,7 +92,7 @@ class EntriesController < ApplicationController
     end
 
     def get_fields 
-      return {}
+      EntryValidator.field_db
     end
 
     # Use callbacks to share common setup or constraints between actions.
