@@ -110,11 +110,11 @@ module EntryValidator
       return false if params[field].blank?
     end
 
-    all_fields = fields.values.flatten
-    # check that only required/optional fields are present
-    params.each do |key, value|
-      return false if not all_fields.include?(key) and not value.blank?
-    end
+#    all_fields = fields.values.flatten
+#    # check that only required/optional fields are present
+#    params.each do |key, value|
+#      return false if not all_fields.include?(key) and not value.blank?
+#    end
 
     return true
   end

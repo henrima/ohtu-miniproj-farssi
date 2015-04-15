@@ -58,15 +58,15 @@ RSpec.describe 'EntryValidator' do
       end
     end
 
-    describe 'does not allow nonrequired-nonoptional field' do
-      allfields = EntryValidator.all_fields
-      fields = EntryValidator.field_db['ARTICLE'].values.flatten
-      (allfields - fields).each do |field|
-        it field do
-          do_not_allow article_entry, article_params, field
-        end
-      end
-    end
+#    describe 'does not allow nonrequired-nonoptional field' do
+#      allfields = EntryValidator.all_fields
+#      fields = EntryValidator.field_db['ARTICLE'].values.flatten
+#      (allfields - fields).each do |field|
+#        it field do
+#          do_not_allow article_entry, article_params, field
+#        end
+#      end
+#    end
   end
 
 
