@@ -91,7 +91,7 @@ module EntryValidator
 
   def EntryValidator.clean_params(category, params)
     new_params = {}
-    all_fields = field_db[category]
+    all_fields = field_db[category].values.flatten
     params.each do |key, value|
       if all_fields.include?(key)
         new_params[key] = value['content']
