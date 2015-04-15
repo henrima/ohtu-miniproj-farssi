@@ -1,20 +1,22 @@
 class BibtexExporter
   def self.generate(type, key, inputHash)
-    puts "@" + type + "{" + key + ","
+    stringToReturn = ""
+    stringToReturn += "@" + type + "{" + key + ",\n"
 
     index = inputHash.length
-    ending = ","
+    ending = ",\n"
 
 
     #Loop through inputhash
     inputHash.each do |key, value|
       index -= 1
-      ending = "" if index == 0
-      puts "  " + key + " = " + fixScandicCharacters(value) + ending
+      ending = "\n" if index == 0
+      stringToReturn += "  " + key + " = " + fixScandicCharacters(value) + ending
     end
 
 
-    puts "}"
+    stringToReturn += "}"
+    return stringToReturn
   end
 
   def self.fixScandicCharacters(string)
@@ -35,15 +37,11 @@ class BibtexExporter
     end
 
 
-  puts(fixScandicCharacters("ÄÖÄäöä"))
+  #input =   { "author" => "KÄa3ke", "title" => "Nykänen vankilassa", "journal" => "Seitsemän päivää",
+  #            "year" => "2014", "volume" => "asdasd", "number" => "34", "pages" => "13-14", "month" => "feb",
+  #            "crossref" => "KB1", "note" => "hienoa"}
+  #puts(generate("article", "KB1", input))
 
-
-
-  input =   { "author" => "KÄa3ke", "title" => "Nykänen vankilassa", "journal" => "Seitsemän päivää",
-              "year" => "2014", "volume" => "asdasd", "number" => "34", "pages" => "13-14", "month" => "feb",
-              "crossref" => "KB1", "note" => "hienoa"}
-
-  generate("article", "KB1", input)
 end
 
 
