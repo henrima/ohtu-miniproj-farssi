@@ -15,7 +15,8 @@ class BibtexExporter
     end
 
 
-    stringToReturn += "}"
+    stringToReturn += "}
+"
     return stringToReturn
   end
 
