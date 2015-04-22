@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @entry.category %>
+</p>
+
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Content</th>
+		<th>&nbsp;</th>
+	</tr>
+	<% @entry.fields.each do |f| %>
+		<tr>
+			<td><%= f.name %></td>
+			<td><%= f.content %></td>
+			<td><%= link_to 'Show', f %></td>
+		</tr>
+	<% end %>
+</table>
+
+
+<%= link_to 'Edit', edit_entry_path(@entry) %> |
+<%= link_to 'Back', entries_path %>

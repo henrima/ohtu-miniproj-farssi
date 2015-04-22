@@ -1,0 +1,44 @@
+<%= form_for(@entry) do |f| %>
+  <% if @entry.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@entry.errors.count, "error") %> prohibited this entry from being saved:</h2>
+
+      <ul>
+      <% @entry.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :category %><br>
+    <%= f.text_field :category %>
+  </div>
+
+<h3>Required fields</h3>
+<% @fields[@entry.category]['required'].each do |f| %>
+  <div class="field">
+    <%= fields_for(f) do |a| %>
+      <%= a.label f %><br>
+      <%= a.text_field :content %>
+    <% end %>
+  </div>
+<% end %>
+
+<h3>Optional fields</h3>
+<% @fields[@entry.category]['optional'].each do |f| %>
+  <div class="field">
+    <%= fields_for(f) do |a| %>
+      <%= a.label f %><br>
+      <%= a.text_field :content %>
+    <% end %>
+  </div>
+<% end %>
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Entries</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="6">Category</th>
+      <th></th>
+      <th colspan="6">Fields</th>
+      <th></th>      
+    </tr>
+  </thead>
+
+
+
+  <tbody>
+    <% @entries.each do |entry| %>
+      <tr>
+        <td colspan="6"><%= link_to entry.category, entry %></td>
+        <td></td>
+        <% entry.fields.each do |field| %>
+          <td colspan="6"><%= field.name %></td>
+          <td></td>
+        <% end %>
+      </tr>     
+    <% end %>
+  </tbody>
+
+</table>
+
+<br>
+
+<%= link_to 'New Entry', new_entry_path %>
