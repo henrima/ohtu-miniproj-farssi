@@ -43,7 +43,7 @@ class EntriesController < ApplicationController
         format.json { render :show, status: :created, location: @entry }
       else
         @fields = get_fields
-        format.html { render :new }
+        format.html { render :new_thing }
         format.json { render json: @entry.errors, status: :unprocessable_entity }
       end
     end
