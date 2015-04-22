@@ -55,42 +55,18 @@ describe EntriesController do
 
     describe "with valid params" do 
       it "creates and saves entry" do
-        entry_params = {"entry"=>"ARTICLE"}
         expect{
-          post :create, entry:entry_params
+          post :create, entry:{"category"=>"ARTICLE"}, author:{"content"=>"pekka"}, title:{"content"=>"otsikko"}, journal:{"content"=>"Me Naiset"}, year:{"content"=>"2015"}, volume:{"content"=>"2"}, number:{"content"=>""}, pages:{"content"=>""}, month:{"content"=>""}, note:{"content"=>""}, key:{"content"=>""}
         }.to change(Entry,:count).by(1)
       end
     end
 
     describe "with invalid params" do 
-      it "redirects to entries#new" do
-        entry_params = {"amount"=>"4.50", "date(1i)"=>"2015", "date(2i)"=>"3", "date(3i)"=>"22", "category_id"=>nil}
-        post :create, entry:entry_params
-        expect(response).to render_template(:new)
+      it "doesn't create and save entry" do
+        expect{
+          post :create, entry:{"category"=>"ARTICLE"}, author:{"content"=>""}, title:{"content"=>"otsikko"}, journal:{"content"=>"Me Naiset"}, year:{"content"=>"2015"}, volume:{"content"=>"2"}, number:{"content"=>""}, pages:{"content"=>""}, month:{"content"=>""}, note:{"content"=>""}, key:{"content"=>""}
+        }.to change(Entry,:count).by(0)
       end
     end
-
   end
-
-  describe "POST #update" do
-
-    describe "with valid params" do 
-      it "updates entry" do
-        entry_params = {"amount"=>"3.0", "date(1i)"=>"2015", "date(2i)"=>"3", "date(3i)"=>"22", "category_id"=>category.id}
-
-        put :update, id:entry.id, entry:entry_params
-
-        entry2 = Entry.find_by amount:3.0
-        expect(entry2.amount).to eq(3.0)
-      end
-    end
-
-    describe "with invalid params" do 
-      it "wont update category" do
-
-      end
-    end
-
-  end
-
 end
