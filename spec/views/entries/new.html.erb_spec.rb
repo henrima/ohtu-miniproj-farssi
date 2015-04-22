@@ -7,12 +7,12 @@ RSpec.describe "entries/new", type: :view do
     ))
   end
 
-  it "renders new entry form" do
-    render
-
-    assert_select "form[action=?][method=?]", entries_path, "post" do
-
-      assert_select "input#entry_category[name=?]", "entry[category]"
-    end
-  end
+#  it "renders new entry form" do
+#    render
+#
+#    assert_select "form[action=?][method=?]", entries_path, "post" do
+#
+#      assert_select "input#entry_category[name=?]", "entry[category]"
+#    end
+#  end
 end
