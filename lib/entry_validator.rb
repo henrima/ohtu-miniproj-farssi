@@ -138,7 +138,7 @@ module EntryValidator
           if not onepresent
             onepresent = true
           else
-            entry.errors.add(field, 'at most one allowed')
+            entry.errors.add(pair, 'at most one allowed')
             succeeds = false
           end
         end
