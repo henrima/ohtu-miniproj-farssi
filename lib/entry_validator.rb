@@ -66,7 +66,7 @@ module EntryValidator
                       'optional' => ['type', 'address', 'month', 'note', 'key']
                       },
         'MISC' => {
-                      'required' => ['none'],
+                      'required' => [],
                       'optional' => ['author', 'title', 'howpublished', 'month', 'year', 'note', 'key']
                       },
         'PHDTHESIS' => {
