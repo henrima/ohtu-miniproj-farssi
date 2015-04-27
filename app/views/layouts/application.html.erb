@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "Arto Helper" %></title>
@@ -17,4 +18,23 @@
        <%= yield %>
     </main>
   </body>
+=======
+<head>
+  <title>ArtoHelper</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  	<div class="navibar">
+  		<%= link_to 'home', root_path %> |
+    	<%= link_to 'entries', entries_path %> |
+    	<%= link_to 'bibtex', exporter_path %>
+    </div>
+
+<%= yield %>
+
+</body>
+>>>>>>> a4e7004b24498b0df0e1bb29d78c330b8b420097
 </html>
