@@ -1,15 +1,5 @@
-<h1>New Entry</h1>
-
-
+<h1>Create new entry</h1>
 
 <% @fields.each do |f| %>
 	<br /><%= link_to 'New ' + f[0], new_thing_path(f[0]) %>
 <% end %>
-
-<br />
-<br />
-<%= link_to 'Back', entries_path %>
-
-<br />
-<%= link_to 'Create bibtext', export_path %>
-
