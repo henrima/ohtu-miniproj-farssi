@@ -26,7 +26,7 @@ RSpec.describe 'EntryValidator' do
   #end
   #
   describe 'clean_params' do
-    let(:params) { {"utf8"=>"✓", "authenticity_token"=>"BFds41XVUHZoQTTeSkkB2/p7XTUodkLBBIP3/1nAv5/1oI5JhqI2TXQw2H0R3KKQ2l1EmrZIkbRwJG+mT1ic8A==", "entry"=>{"category"=>"ARTICLE"}, "author"=>{"content"=>"a"}, "title"=>{"content"=>"b"}, "journal"=>{"content"=>"c"}, "year"=>{"content"=>"d"}, "volume"=>{"content"=>"e"}, "number"=>{"content"=>"f"}, "pages"=>{"content"=>"g"}, "month"=>{"content"=>"h"}, "note"=>{"content"=>"i"}, "key"=>{"content"=>"j"}, "commit"=>"Create Entry"} }
+    let(:params) { {"utf8"=>"✓", "authenticity_token"=>"BFds41XVUHZoQTTeSkkB2/p7XTUodkLBBIP3/1nAv5/1oI5JhqI2TXQw2H0R3KKQ2l1EmrZIkbRwJG+mT1ic8A==", "entry"=>{"category"=>"ARTICLE", "cite_key"=>"cit"}, "author"=>{"content"=>"a"}, "title"=>{"content"=>"b"}, "journal"=>{"content"=>"c"}, "year"=>{"content"=>"d"}, "volume"=>{"content"=>"e"}, "number"=>{"content"=>"f"}, "pages"=>{"content"=>"g"}, "month"=>{"content"=>"h"}, "note"=>{"content"=>"i"}, "key"=>{"content"=>"j"}, "commit"=>"Create Entry"} }
 
     it 'does the right thing' do
       expected = { "author"=>"a", "title"=>"b", "journal"=>"c", "year"=>"d", "volume"=>"e", "number"=>"f", "pages"=>"g", "month"=>"h", "note"=>"i", "key"=>"j" }
