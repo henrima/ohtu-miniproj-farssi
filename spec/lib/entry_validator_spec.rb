@@ -16,6 +16,21 @@ RSpec.describe 'EntryValidator' do
     'key' => 'Arttu Authori',
   } }
 
+  let(:book_entry) { Entry.new(category:'BOOK', cite_key:'bk2') }
+  let(:book_params) { {
+    'author' => 'Arttu Authori',
+    'title' => 'Article Title',
+    'publisher' => 'The Pub',
+    'year' => '1922',
+    'volume' => '3b',
+    'series' => '8',
+    'address' => '24--9283',
+    'edition' => 'June',
+    'month' => 'Some result it is!',
+    'note' => 'Nootti',
+    'key' => 'Arttu Authori',
+  } }
+
   # TODO: refactor using meta-programming?
   #it 'requires an entry type' do
   #  require_field article_entry, 'entry_type'
@@ -34,17 +49,17 @@ RSpec.describe 'EntryValidator' do
     end
   end
 
-  it 'requires a valid category' do
-    article_entry.category = 'invalid'
-    expect(EntryValidator.validate article_entry, article_params).to eq false
-  end
+  describe 'for article class' do
+    it 'requires a valid category' do
+      article_entry.category = 'invalid'
+      expect(EntryValidator.validate article_entry, article_params).to eq false
+    end
 
-  it 'requires a cite_key' do
-    article_entry.cite_key = '  '
-    expect(EntryValidator.validate article_entry, article_params).to eq false
-  end
+    it 'requires a cite_key' do
+      article_entry.cite_key = '  '
+      expect(EntryValidator.validate article_entry, article_params).to eq false
+    end
 
-  describe 'article' do
     it 'validates a correct article class' do
       expect(EntryValidator.validate article_entry, article_params).to eq true
     end
@@ -66,28 +81,69 @@ RSpec.describe 'EntryValidator' do
         end
       end
     end
+  end
 
-#    describe 'does not allow nonrequired-nonoptional field' do
-#      allfields = EntryValidator.all_fields
-#      fields = EntryValidator.field_db['ARTICLE'].values.flatten
-#      (allfields - fields).each do |field|
-#        it field do
-#          do_not_allow article_entry, article_params, field
-#        end
-#      end
-#    end
+
+  describe 'for book class' do
+    it 'requires a valid category' do
+      book_entry.category = 'invalid'
+      expect(EntryValidator.validate book_entry, book_params).to eq false
+    end
+
+    it 'requires a cite_key' do
+      book_entry.cite_key = '  '
+      expect(EntryValidator.validate book_entry, book_params).to eq false
+    end
+
+    it 'validates a correct book class' do
+      expect(EntryValidator.validate book_entry, book_params).to eq true
+    end
+
+    describe 'requires required field' do
+      fields = EntryValidator.field_db['BOOK']['required']
+      fields.each do |field|
+        it field do
+          require_field book_entry, book_params, field
+        end
+      end
+    end
+
+    describe 'does not require optional field' do
+      fields = EntryValidator.field_db['BOOK']['optional']
+      fields.each do |field|
+        it field do
+          do_not_require book_entry, book_params, field
+        end
+      end
+    end
+
+    describe 'only allows one of alternative pair' do
+      pairs = EntryValidator.field_db['BOOK'].values.flatten.find_all{|f| f.include? '/'}
+      pairs.each do |pair|
+        it pair do
+          pair.split('/').each do |field|
+            book_params[field] = 'something'
+          end
+          expect(EntryValidator.validate book_entry, book_params).to eq false
+        end
+      end
+    end
   end
 
 
   private
 
     def require_field(entry, params, field)
-      params[field] = nil
+      field.split('/').each do |subfield|
+        params[subfield] = ' '
+      end
       expect(EntryValidator.validate entry, params).to eq false
     end
 
     def do_not_require(entry, params, field)
-      params[field] = nil
+      field.split('/').each do |subfield|
+        params[subfield] = ' '
+      end
       expect(EntryValidator.validate entry, params).to eq true
     end
 
