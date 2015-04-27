@@ -2,13 +2,11 @@
 
 <h1>Listing Entries</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th colspan="6">Category</th>
-      <th></th>
-      <th colspan="6">Fields</th>
-      <th></th>      
+      <th>Category</th>
+      <th>Key</th>  
     </tr>
   </thead>
 
@@ -17,12 +15,9 @@
   <tbody>
     <% @entries.each do |entry| %>
       <tr>
-        <td colspan="6"><%= link_to entry.category, entry %></td>
-        <td></td>
-        <% entry.fields.each do |field| %>
-          <td colspan="6"><%= field.name %></td>
-          <td></td>
-        <% end %>
+        <td><%= link_to entry.category, entry %></td>
+        <% field = Field.where(:entry_id => entry.id, :name => 'key').take %>
+        <td><%= field.content %></td>
       </tr>     
     <% end %>
   </tbody>
