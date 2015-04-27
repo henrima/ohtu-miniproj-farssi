@@ -107,7 +107,28 @@ module EntryValidator
     
     # check that required fields are present
     fields['required'].each do |field|
-      return false if params[field].blank?
+      onepresent = false
+      field.split('/').each do |subfield|
+        if not params[subfield].blank?
+          onepresent = true
+        end
+      end
+      return false if not onepresent
+    end
+
+    # check that at most one from an alternative pair is present
+    pairs = fields.values.flatten.find_all{|f| f.include? '/'}
+    pairs.each do |pair|
+      onepresent = false
+      pair.split('/').each do |field|
+        if not params[field].blank?
+          if not onepresent
+            onepresent = true
+          else
+            return false
+          end
+        end
+      end
     end
 
 #    all_fields = fields.values.flatten
