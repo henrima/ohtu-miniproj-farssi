@@ -5,9 +5,6 @@ ruby '2.2.0'
 # to fix unknown error
 gem 'rb-readline'
 
-# to fix unknown error
-gem 'rb-readline'
-
 gem 'activesupport'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
