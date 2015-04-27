@@ -17,7 +17,7 @@
       <tr>
         <td><%= link_to entry.category, entry %></td>
         <% field = Field.where(:entry_id => entry.id, :name => 'key').take %>
-        <td><%= field.content %></td>
+        <td><%= entry.cite_key %></td>
       </tr>     
     <% end %>
   </tbody>
