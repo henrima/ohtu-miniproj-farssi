@@ -101,6 +101,7 @@ module EntryValidator
   end
 
   def EntryValidator.validate(entry, params)
+    return false if entry.cite_key.blank?
     return false if not field_db.keys.include? entry.category
     #return false if entry['cite_key'].nil?
     fields = field_db[entry.category]
