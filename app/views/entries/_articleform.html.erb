@@ -1,3 +1,4 @@
+
 <%= form_for(@entry) do |f| %>
   <% if @entry.errors.any? %>
     <div id="error_explanation">
@@ -20,8 +21,16 @@
 <% @fields[@entry.category]['required'].each do |f| %>
   <div class="field">
     <%= fields_for(f) do |a| %>
-      <%= a.label f %><br>
-      <%= a.text_field :content %>
+        <%color = "black"%>
+        <% if not @failParams.nil?%>
+            <% if @failParams.include?(f.downcase.to_s) %>
+                <% color = "red"%>
+            <% end %>
+        <%end%>
+
+        <%= a.label f, :style => "color:" + color +";"%><br>
+
+        <%= a.text_field :content, :value =>@okParams[f] %>
     <% end %>
   </div>
 <% end %>

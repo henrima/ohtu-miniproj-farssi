@@ -33,11 +33,19 @@ class EntriesController < ApplicationController
     @entry = Entry.new(category:params['entry']['category'])
 
     respond_to do |format|
-      if @entry.save and look_what_category_post_is_and_create_fields
+      @okParams = {}
+      @failParams = look_what_category_post_is_and_create_fields(@okParams)
+      if @failParams.empty? and @entry.save
         format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
         format.json { render :show, status: :created, location: @entry }
       else
         @fields = get_fields
+        message = 'These fields failed to validate: '
+        @failParams.each do |paramii|
+          message = message + " " + paramii
+        end
+
+        flash[:alert] = message
         format.html { render :new_thing }
         format.json { render json: @entry.errors, status: :unprocessable_entity }
       end
@@ -70,19 +78,23 @@ class EntriesController < ApplicationController
 
   private
 
-    def look_what_category_post_is_and_create_fields
-      answer = true
+    def look_what_category_post_is_and_create_fields(okParams)
+      failedFields = []
+
       fields = get_fields
 
       required_fields = fields[@entry.category]['required']
       required_fields.each do |f|
+
         # tsekkaa onko ko. fieldi required
         # jos on required, mutta field on tyhjä, palauta false
         # tsekkaa ylempänä että jos on false niin entryn tallennus perutaan
         # params => { 'author' =>  'pekka' }
         parami = params[f]['content']
         if parami.nil? or parami == ''
-          answer = false
+          failedFields<<f
+        else
+          okParams[f] = parami
         end
         field = Field.new(content:parami, name:f, entry_id:@entry.id)
         field.save
@@ -92,10 +104,10 @@ class EntriesController < ApplicationController
         field = Field.new(content:params[f]['content'], name:f, entry_id:@entry.id)
         field.save
       end
-      if !answer
+      unless failedFields.empty?
         @entry.destroy
       end
-      return answer
+      return failedFields
     end
 
     def get_fields 
@@ -116,10 +128,7 @@ class EntriesController < ApplicationController
                       'required' => ['author', 'title', 'booktitle', 'year'], 
                       'optional' => ['editor', 'volume/number', 'series', 'pages', 'address', 'month', 'organization', 'publisher', 'note', 'key']
                       },
-        'INBOOK' => {
-                      'required' => ['author/editor', 'title', 'chapter/pages', 'publisher', 'year'],
-                      'optional' => ['volume/number', 'series', 'type', 'address', 'edition', 'month', 'note', 'key']
-                      },
+
         'INBOOK' => {
                       'required' => ['author/editor', 'title', 'chapter/pages', 'publisher', 'year'],
                       'optional' => ['volume/number', 'series', 'type', 'address', 'edition', 'month', 'note', 'key']
