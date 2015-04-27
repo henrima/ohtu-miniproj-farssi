@@ -9,8 +9,6 @@ FactoryGirl.define do
     field2 = Field.new
     field2.name = "author"
     field2.content = "jussi"
-
-    fields = [field2, field1]
   end
 
   factory :field do
