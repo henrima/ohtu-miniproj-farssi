@@ -24,3 +24,9 @@
 *.xml
 
 *.iml
+
+*.json
+
+/.
+
+coverage/
