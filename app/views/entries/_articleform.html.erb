@@ -22,9 +22,22 @@
 <h3>Required fields</h3>
 <% @fields[@entry.category]['required'].each do |f| %>
   <div class="field">
-    <%= fields_for(f) do |a| %>
-      <%= a.label f %><br>
-      <%= a.text_field :content %>
+    <% if f.include? '/' %>
+      <% s1, s2 = f.split('/') %>
+      <%= fields_for(s1) do |a| %>
+        <%= a.label "#{s1} or ..." %><br>
+        <%= a.text_field :content %>
+      <% end %>
+      <br>
+      <%= fields_for(s2) do |a| %>
+        <%= a.label "... #{s2}" %><br>
+        <%= a.text_field :content %>
+      <% end %>
+    <% else %>
+      <%= fields_for(f) do |a| %>
+        <%= a.label f %><br>
+        <%= a.text_field :content %>
+      <% end %>
     <% end %>
   </div>
 <% end %>
@@ -32,9 +45,22 @@
 <h3>Optional fields</h3>
 <% @fields[@entry.category]['optional'].each do |f| %>
   <div class="field">
-    <%= fields_for(f) do |a| %>
-      <%= a.label f %><br>
-      <%= a.text_field :content %>
+    <% if f.include? '/' %>
+      <% s1, s2 = f.split('/') %>
+      <%= fields_for(s1) do |a| %>
+        <%= a.label "#{s1} or ..." %><br>
+        <%= a.text_field :content %>
+      <% end %>
+      <br>
+      <%= fields_for(s2) do |a| %>
+        <%= a.label "... #{s2}" %><br>
+        <%= a.text_field :content %>
+      <% end %>
+    <% else %>
+      <%= fields_for(f) do |a| %>
+        <%= a.label f %><br>
+        <%= a.text_field :content %>
+      <% end %>
     <% end %>
   </div>
 <% end %>
