@@ -29,3 +29,5 @@
 coverage/
 
 .idea/ohtu-miniproj-farssi.iml
+
+*.iml
