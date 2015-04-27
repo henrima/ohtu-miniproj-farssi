@@ -17,7 +17,6 @@ class ExporterController < ApplicationController
     entries.each do |e|
       input = {}
       key = e.cite_key
-      key = '' if key.nil?
 
       fields = e.fields
       fields.each do |f|
