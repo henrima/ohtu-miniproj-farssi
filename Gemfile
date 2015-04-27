@@ -48,6 +48,9 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  #minitest (required for boostrap)
+  gem 'minitest'
 end
 
 group :development, :test do
@@ -60,7 +63,6 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
-  gem 'simplecov', require: false
   gem 'webmock'
   gem 'simplecov', require: false
 end
