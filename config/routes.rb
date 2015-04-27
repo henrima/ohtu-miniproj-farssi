@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get 'new/:category', to: 'entries#new_thing', as: :new_thing
 
   get 'newarticle', to: 'entries#newarticle'
+
+  get 'exporter', to: 'exporter#index', as: :exporter
+  get 'export.bib', to: 'exporter#export', as: :export
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

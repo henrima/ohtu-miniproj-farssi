@@ -19,3 +19,19 @@
 
 # Ignore coverage reports.
 /coverage/
+
+.idea/workspace.xml
+
+*.xml
+
+*.iml
+
+*.json
+
+/.
+
+coverage/
+
+.idea/ohtu-miniproj-farssi.iml
+
+*.iml
