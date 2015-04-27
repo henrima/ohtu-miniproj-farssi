@@ -120,10 +120,6 @@ class EntriesController < ApplicationController
                       'required' => ['author/editor', 'title', 'chapter/pages', 'publisher', 'year'],
                       'optional' => ['volume/number', 'series', 'type', 'address', 'edition', 'month', 'note', 'key']
                       },
-        'INBOOK' => {
-                      'required' => ['author/editor', 'title', 'chapter/pages', 'publisher', 'year'],
-                      'optional' => ['volume/number', 'series', 'type', 'address', 'edition', 'month', 'note', 'key']
-                      },
         'INPROCEEDINGS' => {
                       'required' => ['author', 'title', 'booktitle', 'year'], 
                       'optional' => ['editor', 'volume/number', 'series', 'pages', 'address', 'month', 'organization', 'publisher', 'note', 'key']
