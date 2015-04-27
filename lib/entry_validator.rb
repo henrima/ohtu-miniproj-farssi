@@ -91,7 +91,7 @@ module EntryValidator
 
   def EntryValidator.clean_params(category, params)
     new_params = {}
-    all_fields = field_db[category].values.flatten
+    all_fields = field_db[category].values.flatten.map{|v| v.split('/')}.flatten
     params.each do |key, value|
       if all_fields.include?(key)
         new_params[key] = value['content']
@@ -101,13 +101,48 @@ module EntryValidator
   end
 
   def EntryValidator.validate(entry, params)
-    return false if entry.cite_key.blank?
-    return false if not field_db.keys.include? entry.category
+    if not field_db.keys.include? entry.category
+      entry.errors.add(:category, 'missing or invalid')
+      return false
+    end
+
+    succeeds = true
+
+    if entry.cite_key.blank?
+      entry.errors.add(:cite_key, 'missing')
+      succeeds = false
+    end
+
     fields = field_db[entry.category]
     
     # check that required fields are present
     fields['required'].each do |field|
-      return false if params[field].blank?
+      onepresent = false
+      field.split('/').each do |subfield|
+        if not params[subfield].blank?
+          onepresent = true
+        end
+      end
+      if not onepresent
+        entry.errors.add(field, 'missing')
+        succeeds = false
+      end
+    end
+
+    # check that at most one from an alternative pair is present
+    pairs = fields.values.flatten.find_all{|f| f.include? '/'}
+    pairs.each do |pair|
+      onepresent = false
+      pair.split('/').each do |field|
+        if not params[field].blank?
+          if not onepresent
+            onepresent = true
+          else
+            entry.errors.add(pair, 'at most one allowed')
+            succeeds = false
+          end
+        end
+      end
     end
 
 #    all_fields = fields.values.flatten
@@ -116,7 +151,7 @@ module EntryValidator
 #      return false if not all_fields.include?(key) and not value.blank?
 #    end
 
-    return true
+    return succeeds
   end
 end
 
