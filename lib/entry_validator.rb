@@ -101,8 +101,18 @@ module EntryValidator
   end
 
   def EntryValidator.validate(entry, params)
-    return false if entry.cite_key.blank?
-    return false if not field_db.keys.include? entry.category
+    if not field_db.keys.include? entry.category
+      entry.errors.add(:category, 'missing or invalid')
+      return false
+    end
+
+    succeeds = true
+
+    if entry.cite_key.blank?
+      entry.errors.add(:cite_key, 'missing')
+      succeeds = false
+    end
+
     fields = field_db[entry.category]
     
     # check that required fields are present
@@ -113,7 +123,10 @@ module EntryValidator
           onepresent = true
         end
       end
-      return false if not onepresent
+      if not onepresent
+        entry.errors.add(field, 'missing')
+        succeeds = false
+      end
     end
 
     # check that at most one from an alternative pair is present
@@ -125,7 +138,8 @@ module EntryValidator
           if not onepresent
             onepresent = true
           else
-            return false
+            entry.errors.add(field, 'at most one allowed')
+            succeeds = false
           end
         end
       end
@@ -137,7 +151,7 @@ module EntryValidator
 #      return false if not all_fields.include?(key) and not value.blank?
 #    end
 
-    return true
+    return succeeds
   end
 end
 
