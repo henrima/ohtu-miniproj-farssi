@@ -2,9 +2,8 @@ require 'rails_helper'
 require 'entry_validator'
 
 RSpec.describe 'EntryValidator' do
-  let(:article_entry) { Entry.new(category:'ARTICLE') }
+  let(:article_entry) { Entry.new(category:'ARTICLE', cite_key:'art1') }
   let(:article_params) { {
-    #'cite_key' => 'art1',
     'author' => 'Arttu Authori',
     'title' => 'Article Title',
     'journal' => 'The Journal',
@@ -27,12 +26,22 @@ RSpec.describe 'EntryValidator' do
   #end
   #
   describe 'clean_params' do
-    let(:params) { {"utf8"=>"✓", "authenticity_token"=>"BFds41XVUHZoQTTeSkkB2/p7XTUodkLBBIP3/1nAv5/1oI5JhqI2TXQw2H0R3KKQ2l1EmrZIkbRwJG+mT1ic8A==", "entry"=>{"category"=>"ARTICLE"}, "author"=>{"content"=>"a"}, "title"=>{"content"=>"b"}, "journal"=>{"content"=>"c"}, "year"=>{"content"=>"d"}, "volume"=>{"content"=>"e"}, "number"=>{"content"=>"f"}, "pages"=>{"content"=>"g"}, "month"=>{"content"=>"h"}, "note"=>{"content"=>"i"}, "key"=>{"content"=>"j"}, "commit"=>"Create Entry"} }
+    let(:params) { {"utf8"=>"✓", "authenticity_token"=>"BFds41XVUHZoQTTeSkkB2/p7XTUodkLBBIP3/1nAv5/1oI5JhqI2TXQw2H0R3KKQ2l1EmrZIkbRwJG+mT1ic8A==", "entry"=>{"category"=>"ARTICLE", "cite_key"=>"cit"}, "author"=>{"content"=>"a"}, "title"=>{"content"=>"b"}, "journal"=>{"content"=>"c"}, "year"=>{"content"=>"d"}, "volume"=>{"content"=>"e"}, "number"=>{"content"=>"f"}, "pages"=>{"content"=>"g"}, "month"=>{"content"=>"h"}, "note"=>{"content"=>"i"}, "key"=>{"content"=>"j"}, "commit"=>"Create Entry"} }
 
     it 'does the right thing' do
       expected = { "author"=>"a", "title"=>"b", "journal"=>"c", "year"=>"d", "volume"=>"e", "number"=>"f", "pages"=>"g", "month"=>"h", "note"=>"i", "key"=>"j" }
       expect(EntryValidator.clean_params 'ARTICLE', params).to eq expected
     end
+  end
+
+  it 'requires a valid category' do
+    article_entry.category = 'invalid'
+    expect(EntryValidator.validate article_entry, article_params).to eq false
+  end
+
+  it 'requires a cite_key' do
+    article_entry.cite_key = '  '
+    expect(EntryValidator.validate article_entry, article_params).to eq false
   end
 
   describe 'article' do

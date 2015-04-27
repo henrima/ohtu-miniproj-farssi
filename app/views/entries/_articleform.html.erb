@@ -12,8 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.hidden_field :category %>
+    <%= f.label :cite_key %><br>
+    <%= f.text_field :cite_key %>
   </div>
+
+
+    <%= f.hidden_field :category %>
 
 <h3>Required fields</h3>
 <% @fields[@entry.category]['required'].each do |f| %>

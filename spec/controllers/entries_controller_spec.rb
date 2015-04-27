@@ -56,7 +56,7 @@ describe EntriesController do
     describe "with valid params" do 
       it "creates and saves entry" do
         expect{
-          post :create, entry:{"category"=>"ARTICLE"}, author:{"content"=>"pekka"}, title:{"content"=>"otsikko"}, journal:{"content"=>"Me Naiset"}, year:{"content"=>"2015"}, volume:{"content"=>"2"}, number:{"content"=>""}, pages:{"content"=>""}, month:{"content"=>""}, note:{"content"=>""}, key:{"content"=>""}
+          post :create, entry:{"category"=>"ARTICLE", "cite_key"=>"citekey"}, author:{"content"=>"pekka"}, title:{"content"=>"otsikko"}, journal:{"content"=>"Me Naiset"}, year:{"content"=>"2015"}, volume:{"content"=>"2"}, number:{"content"=>""}, pages:{"content"=>""}, month:{"content"=>""}, note:{"content"=>""}, key:{"content"=>""}
         }.to change(Entry,:count).by(1)
       end
     end
@@ -64,7 +64,15 @@ describe EntriesController do
     describe "with invalid params" do 
       it "doesn't create and save entry" do
         expect{
-          post :create, entry:{"category"=>"ARTICLE"}, author:{"content"=>""}, title:{"content"=>"otsikko"}, journal:{"content"=>"Me Naiset"}, year:{"content"=>"2015"}, volume:{"content"=>"2"}, number:{"content"=>""}, pages:{"content"=>""}, month:{"content"=>""}, note:{"content"=>""}, key:{"content"=>""}
+          post :create, entry:{"category"=>"ARTICLE", "cite_key"=>"citekey"}, author:{"content"=>""}, title:{"content"=>"otsikko"}, journal:{"content"=>"Me Naiset"}, year:{"content"=>"2015"}, volume:{"content"=>"2"}, number:{"content"=>""}, pages:{"content"=>""}, month:{"content"=>""}, note:{"content"=>""}, key:{"content"=>""}
+        }.to change(Entry,:count).by(0)
+      end
+    end
+
+    describe "with no cite key" do 
+      it "doesn't create and save entry" do
+        expect{
+          post :create, entry:{"category"=>"ARTICLE", "cite_key"=>""}, author:{"content"=>"pekka"}, title:{"content"=>"otsikko"}, journal:{"content"=>"Me Naiset"}, year:{"content"=>"2015"}, volume:{"content"=>"2"}, number:{"content"=>""}, pages:{"content"=>""}, month:{"content"=>""}, note:{"content"=>""}, key:{"content"=>""}
         }.to change(Entry,:count).by(0)
       end
     end

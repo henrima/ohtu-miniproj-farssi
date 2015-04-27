@@ -32,9 +32,10 @@ class EntriesController < ApplicationController
   # POST /entries
   # POST /entries.json
   def create
+    cite_key = params['entry']['cite_key']
     category = params['entry']['category']
     clean_params = EntryValidator.clean_params category, params
-    @entry = Entry.new(category:category)
+    @entry = Entry.new(category:category, cite_key:cite_key)
     entry_valid = EntryValidator.validate @entry, clean_params
 
     respond_to do |format|

@@ -16,16 +16,15 @@ class ExporterController < ApplicationController
     entries = Entry.all
     entries.each do |e|
       input = {}
-      key = ''
+      key = e.cite_key
+      key = '' if key.nil?
 
       fields = e.fields
       fields.each do |f|
-        next if f.content == ''
-        if f.name == 'key'
-          key = f.content
-        else
-          input[f.name] = f.content
-        end
+        next if f.content.blank?
+        
+        input[f.name] = f.content
+        
       end
       category = e.category
 
