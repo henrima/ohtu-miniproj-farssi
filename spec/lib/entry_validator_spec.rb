@@ -42,10 +42,16 @@ RSpec.describe 'EntryValidator' do
   #
   describe 'clean_params' do
     let(:params) { {"utf8"=>"✓", "authenticity_token"=>"BFds41XVUHZoQTTeSkkB2/p7XTUodkLBBIP3/1nAv5/1oI5JhqI2TXQw2H0R3KKQ2l1EmrZIkbRwJG+mT1ic8A==", "entry"=>{"category"=>"ARTICLE", "cite_key"=>"cit"}, "author"=>{"content"=>"a"}, "title"=>{"content"=>"b"}, "journal"=>{"content"=>"c"}, "year"=>{"content"=>"d"}, "volume"=>{"content"=>"e"}, "number"=>{"content"=>"f"}, "pages"=>{"content"=>"g"}, "month"=>{"content"=>"h"}, "note"=>{"content"=>"i"}, "key"=>{"content"=>"j"}, "commit"=>"Create Entry"} }
+    let(:params2) { {"utf8"=>"✓", "authenticity_token"=>"9H4JU0N+ajWtCpEUaFsveixepqJhO+Jl/fi7KyGHDHsFiev5kAkMDrF7fbczzowxDHi/Df8FMRCJXyNyNx8vFA==", "entry"=>{"cite_key"=>"a", "category"=>"BOOK"}, "author"=>{"content"=>"a"}, "editor"=>{"content"=>"a"}, "title"=>{"content"=>"a"}, "publisher"=>{"content"=>"a"}, "year"=>{"content"=>"a"}, "volume"=>{"content"=>""}, "number"=>{"content"=>""}, "series"=>{"content"=>""}, "address"=>{"content"=>""}, "edition"=>{"content"=>""}, "month"=>{"content"=>""}, "note"=>{"content"=>""}, "key"=>{"content"=>""}, "commit"=>"Create Entry"} }
 
     it 'does the right thing' do
       expected = { "author"=>"a", "title"=>"b", "journal"=>"c", "year"=>"d", "volume"=>"e", "number"=>"f", "pages"=>"g", "month"=>"h", "note"=>"i", "key"=>"j" }
       expect(EntryValidator.clean_params 'ARTICLE', params).to eq expected
+    end
+
+    it 'does the right thing' do
+      expected = { "author"=>"a", "editor"=>"a", "title"=>"a", "publisher"=>"a", "year"=>"a", "volume"=>"", "number"=>"", "series"=>"", "address"=>"", "edition"=>"", "month"=>"", "note"=>"", "key"=>"" }
+      expect(EntryValidator.clean_params 'BOOK', params2).to eq expected
     end
   end
 
